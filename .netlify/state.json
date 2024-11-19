@@ -1,0 +1,21 @@
+{
+	"siteId": "4a4847ad-95a8-4eb4-9c5d-d71aae931127",
+	"geolocation": {
+		"data": {
+			"city": "Vienna",
+			"country": {
+				"code": "AT",
+				"name": "Austria"
+			},
+			"subdivision": {
+				"code": "9",
+				"name": "Vienna"
+			},
+			"timezone": "Europe/Vienna",
+			"latitude": 48.1611,
+			"longitude": 16.4452,
+			"postalCode": "1110"
+		},
+		"timestamp": 1731967241143
+	}
+}
