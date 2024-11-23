@@ -1,0 +1,36 @@
+.cover {
+    position: relative;
+    height: 295px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid #eaeaea;
+}
+
+.button {
+    position: absolute;
+    bottom: 20px;
+    padding: 6px;
+    font-size: 1em;
+    font-weight: 500 bold;
+    font-family: inherit;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    background-color: white;
+    color: #6f6f6f;
+    border: 2px solid transparent #888;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    right: 1em;
+}
+
+.cover:hover .button {
+    opacity: 1;
+}
+
+.image {
+    width: 100%;
+    max-height: 295px;
+    object-fit: cover;
+}   

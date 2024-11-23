@@ -1,7 +1,20 @@
-import { useState, useEffect } from 'react'
-import supabase from '../utils/supabase'
+import './App.css'
+import './assets/react.svg'
+import { Page } from './Page/Page'
+/*import { create } from 'zustand'
+import { devtools } from 'zustand/middleware'
+import { zipWith } from "lodash"*/
 
-function Page() {
+function App() {
+    return (
+        <>
+            <Page />
+        </>
+    )
+}
+
+export default App
+/* function Page() {
   interface Todo {
     id: number;
     title: string;
@@ -23,11 +36,40 @@ function Page() {
   }, [])
 
   return (
-    <div>
-      {todos.map((todo) => (
-        <li key={todo.id}>{todo.title}</li>
-      ))}
-    </div>
+    <><div>
+          {todos.map((todo) => (
+              <li key={todo.id}>{todo.title}</li>
+          ))}
+
+      </div><div>
+              <button onClick={async () => {
+                  const { data: todos } = await supabase.from('todos').insert([{ title: 'Do laundry', completed: false }])
+                  if (todos) {
+                    setTodos(prevTodos => [...prevTodos, ...todos])
+                  }
+              } }>Add todo</button>
+                
+          </div>
+            <div>
+                <button onClick={async () => {
+                    const { data: todos } = await supabase.from('todos').delete().match({ completed: true })
+                    if (todos) {
+                        setTodos(prevTodos => prevTodos.filter(todo => !todo.completed))
+                    }
+                }
+                }>Delete completed</button> 
+            </div>
+            <div>
+                <button onClick={async () => {
+                    const { data: todos } = await supabase.from('todos').update({ completed: true }).match({ completed: false })
+                    if (todos) {
+                        setTodos(prevTodos => prevTodos.map(todo => ({ ...todo, completed: true })))
+                    }
+                }
+                }>Complete all</button>
+            </div>  
+                </>
+    
   )
 }
-export default Page
+export default  */
