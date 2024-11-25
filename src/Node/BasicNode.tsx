@@ -1,43 +1,46 @@
-import { NodeData } from "../utils/types";
+import { NodeData, NodeType } from "../utils/types";
 import styles from "./Node.module.css";
 import { nanoid } from "nanoid";
 import { useRef, useEffect, FormEventHandler, KeyboardEventHandler } from "react";
-import cs from "classnames";
+import cx from "classnames";
+import { useAppState } from "../state/AppStateContext";
+import { CommandPanel } from "./CommandPanel";
 
 type BasicNodeProps = {
     node: NodeData;
     updateFocusedIndex(index: number): void;
     isFocused: boolean;
     index: number;
-    addNode(node: NodeData, index: number): void;
-    removeNodeByIndex(index: number): void;
-    changeNodeValue(index: number, value: string): void;
-}
+};
 
 export const BasicNode = ({
     node,
     updateFocusedIndex,
     isFocused,
     index,
-    addNode,
-    removeNodeByIndex,
-    changeNodeValue
 }: BasicNodeProps) => {
     const nodeRef = useRef<HTMLDivElement>(null);
     
+    const showCommandPanel = isFocused && node?.value?.match(/^\//);
+    const { changeNodeValue, changeNodeType, removeNodeByIndex, addNode } = useAppState();
+    
     useEffect(() => {
-        if (isFocused && nodeRef.current) {
+        if (nodeRef.current && document.activeElement !== nodeRef.current) {
+            nodeRef.current.textContent = node.value;
+        }
+        if (isFocused) {
             nodeRef.current?.focus();
         } else {
             nodeRef.current?.blur();
         }
-    }, [isFocused]);
+    }, [node, isFocused]);
     
-    useEffect(() => {
-        if (nodeRef.current && !isFocused) {
-            nodeRef.current.textContent = node.value;
+    const parseCommand = (nodeType: NodeType) => {
+        if (nodeRef.current) {
+            changeNodeType(index, nodeType);
+            nodeRef.current.textContent = "";
         }
-    }, [isFocused, node]);
+    }
     
     const handleInput: FormEventHandler<HTMLDivElement> = ({ currentTarget }) => {
         const { textContent } = currentTarget;
@@ -72,15 +75,22 @@ export const BasicNode = ({
     }
 
     return (
-        <div
-            onInput={handleInput}
-            onClick={handleClick}
-            onKeyDown={onKeyDown}
-            ref={nodeRef}
-            className={cs(styles.node, { [styles.focused]: isFocused })}
-            contentEditable
-            suppressContentEditableWarning
-        ></div>
+        <>
+            {
+                showCommandPanel && (
+                    <CommandPanel selectItem={parseCommand} nodeText={node.value} />
+                )
+            }
+            <div
+                onInput={handleInput}
+                onClick={handleClick}
+                onKeyDown={onKeyDown}
+                ref={nodeRef}
+                className={cx(styles.node, styles[node.type])}
+                contentEditable
+                suppressContentEditableWarning
+            />
+            </>
     );
 }
     

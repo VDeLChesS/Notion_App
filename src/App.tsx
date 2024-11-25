@@ -1,16 +1,17 @@
-import './App.css'
 import './assets/react.svg'
-import { Page } from './Page/Page'
+import { Page } from './Page/Page';
+import { AppStateProvider } from './state/AppStateContext';
+
 /*import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { zipWith } from "lodash"*/
 
 function App() {
-    return (
-        <>
-            <Page />
-        </>
-    )
+  return (
+    <AppStateProvider>
+      <Page />
+    </AppStateProvider>
+  );
 }
 
 export default App

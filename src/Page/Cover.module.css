@@ -11,7 +11,6 @@
     position: absolute;
     bottom: 20px;
     padding: 6px;
-    font-size: 1em;
     font-weight: 500 bold;
     font-family: inherit;
     opacity: 0;
@@ -22,7 +21,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: border-color 0.25s;
-    right: 1em;
+    right: 90px;
 }
 
 .cover:hover .button {
